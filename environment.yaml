@@ -1,0 +1,33 @@
+---
+####                       MANAGEMENT IPV4 ADDRESSES                        ####
+## Used in SSH connections to the orchestration manager and all remote hosts; ##
+## For any group resembling a certain list, the IP addresses need to be       ##
+## provided in the lexicographical order of the hostnames (e.g. host-1 first, ##
+## then host-2).                                                              ##
+ORCHESTRATION_MANAGER_MANAGEMENT_IP:  192.168.0.1
+HOST_MANAGEMENT_IP_LIST:
+  - 192.168.0.11
+  - 192.168.0.12
+
+####                            HOST INFORMATION                            ####
+# Host prefixes and suffixes
+HOST_PREFIX: test-host
+HOST_SUFFIX: -x
+
+####                                LOGGING                                 ####
+RSYSLOG_TAG: 'ROBOT_TEST'
+
+####                            SSH INFORMATION                             ####
+# Should match information of key generated in robot-framework/ssh-config
+SSH_KEY:      _ROOTDIR/robot-framework/ssh-config/id_rsa
+SSH_PASSKEY:  ''
+SSH_USER:     root
+
+####                                TIMERS                                  ####
+# How many times to retry when waiting for hosts or services and how much time
+# to wait in between retries:
+WAIT_FOR_HOST_RETRIES:     16x
+WAIT_FOR_HOST_TIME:        4s
+WAIT_FOR_SERVICE_RETRIES:  16x
+WAIT_FOR_SERVICE_TIME:     4s
+...

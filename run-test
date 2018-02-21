@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Fail script if any command fails.
+set -e
+
+# Print usage function.
+printUsage() {
+  printf "\
+Usage: $(basename "$(readlink -f "${0}")") options
+Options:
+  [-d|--debug]                                                 Enable debug mode.
+  [-h|--help]                                                  Print this help text.
+  [-o|--output-dir \$output_directory]                          Set output directory.
+  [\$arguments]                                                 Additional arguments to pass to robot directly
+"
+}
+
+# Get path to this script.
+script_path="$(dirname "$(readlink -f "${0}")")"
+
+# Parse arguments.
+output_directory="${script_path}/output"
+while (( ${#} > 0 )); do
+  case "${1}" in
+    "-d");& "--debug") set -x;;
+    "-h");& "--help") printUsage; exit 0;;
+    "-o");& "--output-dir") shift; output_directory="${1}";;
+    *) break;;
+  esac; shift
+done
+
+# Run.
+robot --outputdir "${output_directory}" "${@}" "${script_path}/tests.robot"
+
