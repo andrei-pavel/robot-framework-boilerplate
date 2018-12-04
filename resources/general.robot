@@ -1,15 +1,16 @@
 *** Keywords ***
 # public:
 Suite Setup
-  Log Start Message  Suite Setup
   Minimal Suite Setup
+  Log Start Message  Suite Setup
   Supply All Services
   Sanity Checks
   Close All Connections
-  Log End Message    Suite Setup
+  Log End Message
 
 
 Minimal Suite Setup
+  Initialize Logging
   Resolve Variables
 #  No Other Robot Should Run
   Open All Connections
@@ -23,31 +24,24 @@ Recreate Snapshots
 Suite Teardown
   Log Start Message  Suite Teardown
   Close All Connections
-  Log End Message    Suite Teardown
+  Log End Message
 
 
 Start Up
-  Log Start Message  Start Up
-
-  Log Start Message                    ${INITIAL_CLEANUP_LABEL}
+  Log Start Message  ${INITIAL_CLEANUP_LABEL}
   Open All Connections
   Shallow Wait For All Hosts
-  Log End Message                      ${INITIAL_CLEANUP_LABEL}
-
-  Log Start Message    ${INITIALIZATION_LABEL}
-
-  Log End Message    Start Up
+  Log End Message
 
 
 Wrap Up
   Log Start Message  Wrap Up
-  Log End Message    ${TESTCASE_BODY_LABEL}
   Open All Connections
   Stop All Services
   Prepare Log
   Run Log Analyzer
   Close All Connections
-  Log End Message    Wrap Up
+  Log End Message
 
 
 # private:
@@ -63,7 +57,7 @@ Resolve Variables
   ${SSH_KEY} =        Replace Rootdir  ${SSH_KEY}
   Set Suite Variable  ${SSH_KEY}
 
-  Log End Message  Resolve Variables
+  Log End Message
 
 
 Replace Rootdir
@@ -81,8 +75,7 @@ Unscramble Path
 Sanity Checks
   Log Start Message                       Sanity Checks
   OperatingSystem.File Should Exist       ${SSH_KEY}
-  OperatingSystem.File Should Exist       ${MASTER_DB_CONFIG}
-  Log End Message                         Sanity Checks
+  Log End Message
 
 
 Run Command
@@ -124,6 +117,15 @@ List To CSV String
   ${string} =     Catenate  ${EMPTY}
   :FOR  ${element}  IN  @{list}
   \  ${string} =  Catenate  ${string}${element},
+  ${string} =     Get Substring  ${string}  0  -1
+  [Return]        ${string}
+
+
+List To Colon Separated String
+  [Arguments]  @{list}
+  ${string} =     Catenate  ${EMPTY}
+  :FOR  ${element}  IN  @{list}
+  \  ${string} =  Catenate  ${string}${element}:
   ${string} =     Get Substring  ${string}  0  -1
   [Return]        ${string}
 

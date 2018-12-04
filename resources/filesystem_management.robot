@@ -2,9 +2,9 @@
 # private:
 Sed Replace In File
   [Arguments]  ${replace_what}  ${replace_with}  ${file}
-  Log Start Message          Sed Replace In File ${replace_what} ${replace_with} ${file}
-  Run Command                sed --in-place 's+${replace_what}+${replace_with}+g' ${file}
-  Log End Message            Sed Replace In File ${replace_what} ${replace_with} ${file}
+  Log Start Message  Sed Replace In File ${replace_what} ${replace_with} ${file}
+  Run Command        sed --in-place 's+${replace_what}+${replace_with}+g' ${file}
+  Log End Message
 
 
 Remove File
@@ -47,7 +47,7 @@ Count Files In Directory On Remote Host
 
 Truncate All Logs
   Log Start Message                Truncate All Logs
-  Log End Message                  Truncate All Logs
+  Log End Message
 
 
 Truncate Syslog
@@ -116,4 +116,3 @@ Copy Directory From Remote Host
   [Arguments]  ${host}  ${source}  ${destination}
   Switch Connection  ${host}
   ${output} =        SSHLibrary.Get Directory  ${source}  ${destination}
-

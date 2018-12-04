@@ -22,15 +22,15 @@ Host Action
   :FOR  ${host}  IN  @{hosts}
   \  Log Start Message          Host Action ${action} ${host}
   \  Run Command Ignore Errors  virsh ${action} ${host}
-  \  Log End Message            Host Action ${action} ${host}
+  \  Log End Message
 
 
 Wait For Hosts
   [Arguments]  @{hosts}
   :FOR  ${host}  IN  @{hosts}
-  \  Log Start Message            Wait For Hosts ${host}
+  \  Log Start Message            Wait For Hosts  ${host}
   \  Wait Until Keyword Succeeds  ${WAIT_FOR_HOST_RETRIES}  ${WAIT_FOR_HOST_TIME}  Empty SSH Command To Host  ${host}
-  \  Log Start Message            Wait For Hosts ${host}
+  \  Log End Message
 
 
 Shallow Wait For All Hosts
@@ -42,9 +42,9 @@ Shallow Wait For All Hosts
 Shallow Wait For Hosts
   [Arguments]  @{hosts}
   :FOR  ${host}  IN  @{hosts}
-  \  Log Start Message            Shallow Wait For Hosts ${host}
+  \  Log Start Message            Shallow Wait For Hosts  ${host}
   \  Wait Until Keyword Succeeds  ${WAIT_FOR_HOST_RETRIES}  ${WAIT_FOR_HOST_TIME}  Host Should Be Running  ${host}
-  \  Log End Message              Shallow Wait For Hosts ${host}
+  \  Log End Message
 
 
 Host Should Be Running

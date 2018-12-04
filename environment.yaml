@@ -15,7 +15,9 @@ HOST_PREFIX: test-host
 HOST_SUFFIX: -x
 
 ####                                LOGGING                                 ####
-RSYSLOG_TAG: 'ROBOT_TEST'
+RSYSLOG_TAG:            ROBOT_TEST
+ACTION_START_LABEL:     ACTION_START
+ACTION_END_LABEL:     ACTION_END
 
 ####                            SSH INFORMATION                             ####
 # Should match information of key generated in robot-framework/ssh-config

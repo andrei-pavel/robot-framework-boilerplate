@@ -1,6 +1,8 @@
 *** Keywords ***
 # private:
 Open All Connections
+  ${CONNECTIONS} =            Create Dictionary
+  Set Suite Variable          ${CONNECTIONS}
   Log Start Message           Open All Connections
 
   ${HOST_LIST_LENGTH} =        Get Length  ${HOST_MANAGEMENT_IP_LIST}
@@ -13,12 +15,13 @@ Open All Connections
   Shallow Wait For All Hosts
   Wait Until Keyword Succeeds     ${WAIT_FOR_HOST_RETRIES}  ${WAIT_FOR_HOST_TIME}  Open Default Connection To Orchestration Manager
   Wait Until Keyword Succeeds     ${WAIT_FOR_HOST_RETRIES}  ${WAIT_FOR_HOST_TIME}  Open Default Connection To All Hosts
-  Log End Message                 Open All Connections
+  Log End Message
 
 
 Open Default Connection To Orchestration Manager
   ${ORCHESTRATION_MANAGER} =  Open Default Connection To Host  ${ORCHESTRATION_MANAGER_MANAGEMENT_IP}
   Set Suite Variable          ${ORCHESTRATION_MANAGER}
+  Set To Dictionary  ${CONNECTIONS}  ${ORCHESTRATION_MANAGER}  Orchestration-Manager-${ORCHESTRATION_MANAGER_MANAGEMENT_IP}
 
 
 Open Default Connection To All Hosts
