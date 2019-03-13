@@ -31,4 +31,3 @@ done
 
 # Run.
 robot --outputdir "${output_directory}" "${@}" "${script_path}/tests.robot"
-

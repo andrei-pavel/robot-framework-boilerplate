@@ -32,4 +32,3 @@ Test-Case-2-Remote-Hosts-Are-Linux-Distributions
     \  ${output} =                 Run Command On Remote Host  cat /proc/version | cut -d ' ' -f 1  ${host}
     \  Should Be Equal As Strings  ${output}  Linux
     Wrap Up
-
